@@ -1,0 +1,5 @@
+version: '3.8'
+
+services:
+  # honeypot services, collector, enrichment, dashboard, nginx
+  # will be added progressively
