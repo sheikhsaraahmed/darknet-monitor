@@ -1,5 +1,20 @@
 version: '3.8'
 
 services:
-  # honeypot services, collector, enrichment, dashboard, nginx
-  # will be added progressively
+  cowrie:
+    image: cowrie/cowrie
+    container_name: cowrie
+    restart: always
+    ports:
+      - "2223:2222"
+    volumes:
+      - cowrie_logs:/cowrie/var/lib/cowrie/log
+    networks:
+      - honeypot_net
+
+networks:
+  honeypot_net:
+    driver: bridge
+
+volumes:
+  cowrie_logs:
