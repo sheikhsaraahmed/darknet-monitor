@@ -1,5 +1,3 @@
-
-
 services:
   cowrie:
     image: cowrie/cowrie
@@ -12,9 +10,33 @@ services:
     networks:
       - honeypot_net
 
+  ftpot:
+    build: ./honeypots/ftp
+    container_name: ftpot
+    restart: always
+    ports:
+      - "2121:21"
+    volumes:
+      - ftp_logs:/logs
+    networks:
+      - honeypot_net
+
+  httppot:
+    build: ./honeypots/http
+    container_name: httppot
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - http_logs:/logs
+    networks:
+      - honeypot_net
+
 networks:
   honeypot_net:
     driver: bridge
 
 volumes:
   cowrie_logs:
+  ftp_logs:
+  http_logs:
