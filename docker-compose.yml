@@ -32,6 +32,20 @@ services:
     networks:
       - honeypot_net
 
+  collector:
+    build: ./collector
+    container_name: collector
+    restart: always
+    volumes:
+      - http_logs:/logs/http
+      - ftp_logs:/logs/ftp
+      - collected_logs:/collected
+    networks:
+      - honeypot_net
+    depends_on:
+      - ftpot
+      - httppot
+
 networks:
   honeypot_net:
     driver: bridge
@@ -40,3 +54,4 @@ volumes:
   cowrie_logs:
   ftp_logs:
   http_logs:
+  collected_logs:
