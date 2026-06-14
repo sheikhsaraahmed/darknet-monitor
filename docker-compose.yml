@@ -46,6 +46,20 @@ services:
       - ftpot
       - httppot
 
+  enrichment:
+    build: ./enrichment
+    container_name: enrichment
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - collected_logs:/collected
+      - enriched_logs:/enriched
+    networks:
+      - honeypot_net
+    depends_on:
+      - collector
+
 networks:
   honeypot_net:
     driver: bridge
@@ -55,3 +69,4 @@ volumes:
   ftp_logs:
   http_logs:
   collected_logs:
+  enriched_logs:
